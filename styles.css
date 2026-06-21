@@ -13,10 +13,7 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #ffffff;
-    background: url('обои/обои.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background: #1a1a1a;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -26,9 +23,11 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.3);
     z-index: 0;
     pointer-events: none;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('обои/обои.jpg') center / cover no-repeat;
 }
 
 main {
@@ -641,14 +640,6 @@ footer {
 }
 
 /* Mobile-first: main padding */
-@media (max-width: 768px) {
-    body {
-        background-attachment: scroll;
-        background-size: cover;
-        background-position: center 20%;
-    }
-}
-
 @media (max-width: 600px) {
     main {
         padding: 1rem;
