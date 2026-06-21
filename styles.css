@@ -641,6 +641,14 @@ footer {
 }
 
 /* Mobile-first: main padding */
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center 30%;
+    }
+}
+
 @media (max-width: 600px) {
     main {
         padding: 1rem;
