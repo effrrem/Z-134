@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши фото — ООО «ЗУБР»</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Наши фото</h1>
+        <a href="index.html" class="back-link">&larr; На главную</a>
+    </header>
+
+    <main>
+        <section class="gallery-section">
+            <div class="gallery-frame">
+                <img id="gallery-image" alt="Фото сервиса">
+            </div>
+            <div class="gallery-dots" id="gallery-dots"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Сервис ремонта грузовиков MAN. Все права защищены.</p>
+    </footer>
+
+    <script>
+        (function() {
+            var images = [
+                "IMAGE 2026-06-21 10:53:34.jpg",
+                "IMAGE 2026-06-21 10:53:44.jpg",
+                "IMAGE 2026-06-21 10:53:47.jpg",
+                "IMAGE 2026-06-21 10:53:50.jpg",
+                "IMAGE 2026-06-21 10:54:26.jpg",
+                "IMAGE 2026-06-21 10:54:32.jpg",
+                "IMAGE 2026-06-21 10:54:36.jpg",
+                "IMAGE 2026-06-21 10:54:43.jpg",
+                "IMAGE 2026-06-21 10:54:57.jpg",
+                "IMAGE 2026-06-21 10:55:00.jpg",
+                "IMAGE 2026-06-21 10:55:13.jpg"
+            ];
+
+            var img = document.getElementById('gallery-image');
+            var dotsContainer = document.getElementById('gallery-dots');
+            var current = 0;
+            var interval;
+
+            function createDots() {
+                for (var i = 0; i < images.length; i++) {
+                    var dot = document.createElement('button');
+                    dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', 'Фото ' + (i + 1));
+                    dot.addEventListener('click', (function(index) {
+                        return function() {
+                            showImage(index);
+                            resetInterval();
+                        };
+                    })(i));
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            function showImage(index) {
+                current = index;
+                var path = encodeURI('\u043E\u0431\u043E\u0438/\u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u0438/' + images[current]);
+                img.style.opacity = '0';
+                setTimeout(function() {
+                    img.src = path;
+                    img.style.opacity = '1';
+                }, 300);
+
+                var dots = dotsContainer.querySelectorAll('.gallery-dot');
+                for (var i = 0; i < dots.length; i++) {
+                    dots[i].classList.remove('active');
+                }
+                dots[current].classList.add('active');
+            }
+
+            function nextImage() {
+                showImage((current + 1) % images.length);
+            }
+
+            function resetInterval() {
+                clearInterval(interval);
+                interval = setInterval(nextImage, 3000);
+            }
+
+            createDots();
+            showImage(0);
+            interval = setInterval(nextImage, 3000);
+
+            img.addEventListener('click', nextImage);
+        })();
+    </script>
+</body>
+</html>
